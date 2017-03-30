@@ -7,7 +7,7 @@ export class HomePage {
   @ViewChild(SignaturePad)public signaturePad : SignaturePad;
   private signaturePadOptions : Object = {
     'minWidth': 1,
-    'canvasWidth': 350,
+    'canvasWidth': 340,
     'canvasHeight': 200
   };
 
