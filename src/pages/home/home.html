@@ -1,14 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>
+      Home
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>Ionic Signature</h2>
-<signature-pad [options]="signaturePadOptions"  ></signature-pad>
-<div>
-<button ion-button color="light" (click)="drawClear()">Clear</button> <button ion-button color="secondary" (click)="drawComplete()">Save</button> 
-  </div>
-<div><img [src]="signatureImage" *ngIf="signatureImage" /></div>
+<ion-content>
+  <button ion-button full (click)="openSignature()">Open Signature</button>
+
+  <div><img [src]="signatureImage" *ngIf="signatureImage" /></div>
 </ion-content>
