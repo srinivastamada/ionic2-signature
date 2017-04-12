@@ -19,17 +19,33 @@ export class SignaturePage {
 
   constructor(public navCtrl : NavController, public navParams : NavParams, private screenOrientation : ScreenOrientation, private platform : Platform) {}
   ngOnInit() {
-
+ 
     if (this.platform.is('ios') || this.platform.is('android')) {
       this
         .screenOrientation
-        .lock('landscape');
+        .lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+      // this.canvasResize();
     }
 
   }
   ngAfterViewInit() {
-    let canvas = document.querySelector('canvas');
+ 
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      this
+        .screenOrientation
+        .lock('landscape');
+      // this.canvasResize();
+    }
 
+    this
+      .signaturePad
+      .clear();
+     this.canvasResize();
+
+  }
+
+  canvasResize() {
+    let canvas = document.querySelector('canvas');
     this
       .signaturePad
       .set('minWidth', 1);
@@ -40,13 +56,8 @@ export class SignaturePage {
     this
       .signaturePad
       .set('canvasHeight', canvas.offsetHeight);
-
-    this.signaturePad.resizeCanvas;
-    this
-      .signaturePad
-      .clear();
-
   }
+
   drawClear() {
     this
       .signaturePad
