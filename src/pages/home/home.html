@@ -7,7 +7,9 @@
 </ion-header>
 
 <ion-content>
-  <button ion-button full (click)="openSignature()">Open Signature</button>
+  <button ion-button full (click)="presentModal()">Open Signature</button>
+
+  
 
   <div><img [src]="signatureImage" *ngIf="signatureImage" /></div>
 </ion-content>

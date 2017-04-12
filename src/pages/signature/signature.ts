@@ -7,9 +7,12 @@ import {ScreenOrientation} from '@ionic-native/screen-orientation';
 
 export class SignaturePage {
   @ViewChild(SignaturePad)public signaturePad : SignaturePad;
-  private signaturePadOptions : Object = {
-    'minWidth': 3,
-    
+
+  public signaturePadOptions : Object = {
+    'minWidth': 2,
+    'canvasWidth': 340,
+    'canvasHeight': 200
+
   };
 
   public signatureImage : string;
@@ -25,12 +28,24 @@ export class SignaturePage {
 
   }
   ngAfterViewInit() {
+    let canvas = document.querySelector('canvas');
+
     this
       .signaturePad
       .set('minWidth', 1);
     this
       .signaturePad
+      .set('canvasWidth', canvas.offsetWidth);
+
+    this
+      .signaturePad
+      .set('canvasHeight', canvas.offsetHeight);
+
+    this.signaturePad.resizeCanvas;
+    this
+      .signaturePad
       .clear();
+
   }
   drawClear() {
     this
@@ -42,6 +57,7 @@ export class SignaturePage {
     this
       .navCtrl
       .push(HomePage, {signatureImage: ''});
+    this.unlock();
   }
 
   drawComplete() {
@@ -50,11 +66,7 @@ export class SignaturePage {
     this.signatureImage = this
       .signaturePad
       .toDataURL();
-    if (this.platform.is('ios') || this.platform.is('android') || this.platform.is('windows')) {
-      this
-        .screenOrientation
-        .unlock();
-    }
+    this.unlock();
     this
       .navCtrl
       .push(HomePage, {signatureImage: this.signatureImage});
@@ -63,5 +75,13 @@ export class SignaturePage {
   drawStart() {
     // will be notified of szimek/signature_pad's onBegin event
     console.log('begin drawing');
+  }
+
+  unlock() {
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      this
+        .screenOrientation
+        .unlock();
+    }
   }
 }
